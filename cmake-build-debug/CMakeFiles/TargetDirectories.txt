@@ -1,0 +1,3 @@
+/Users/kajetanserwecinski/Documents/Cpp/huffman_encoder/cmake-build-debug/CMakeFiles/huffman_encoder.dir
+/Users/kajetanserwecinski/Documents/Cpp/huffman_encoder/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/kajetanserwecinski/Documents/Cpp/huffman_encoder/cmake-build-debug/CMakeFiles/rebuild_cache.dir

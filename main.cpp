@@ -1,25 +1,42 @@
-#include <iostream>
+#include "header.h"
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the
-    // <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
-
-    for (int i = 1; i <= 5; i++) {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code.
-        // We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/>
-        // breakpoint for you, but you can always add more by pressing
-        // <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
+vector<pair<char, int>> frequencyTable(const string& input) {
+    unordered_map<char, int> freq;
+    for (char c : input) {
+        freq[c]++;
     }
-
-    return 0;
+    vector<pair<char, int>> sorted_freq(freq.begin(), freq.end());
+    sort(sorted_freq.begin(), sorted_freq.end(), [](const pair<char, int>& p1, const pair<char, int>& p2) {
+        return p1.second > p2.second;
+    });
+    return sorted_freq;
 }
 
-// TIP See CLion help at <a
-// href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>.
-//  Also, you can try interactive lessons for CLion by selecting
-//  'Help | Learn IDE Features' from the main menu.
+shared_ptr<Node> createHuffmanTree(const vectr<pair<car,int>>& sortedFreq) {
+    priority_queue<shared_ptr<Node>, vector<shared_ptr<Node>>, Compare> pq;
+
+    for (const auto& pair: sortedFreq) {
+        pq.push(make_shared<Node>(pair.first, pair.second));
+    }
+    while (!pq.empty()) {
+        shared_ptr<Node> left = pq.top(); pq.pop();
+        shared_ptr<Node> right = pq.top(); pq.pop();
+
+        shared_ptr<Node> newNode = make_shared<Node>('\0', left->freq + right->freq);
+        newNode->left = left;
+        newNode->right = right;
+
+        pq.push(newNode);
+    }
+
+    return pq.top();
+}
+
+int main() {
+    const string input = "alala";
+    vector<pair<char, int>> freq = frequencyTable(input);
+    for (const auto& pair : freq) {
+        cout << pair.first << " " << pair.second << endl;
+    }
+    return 0;
+}
